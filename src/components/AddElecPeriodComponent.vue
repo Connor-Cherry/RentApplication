@@ -12,15 +12,13 @@
           transition="scale-transition"
         >
           <template v-slot:activator="{ on }">
-            <div>
-              <v-text-field
-                label="Begin Date"
-                prepend-icon="date_range"
-                :value="beginDate"
-                v-on="on"
-              >
-              </v-text-field>
-            </div>
+            <v-text-field
+              label="Begin Date"
+              prepend-icon="date_range"
+              :value="beginDate"
+              v-on="on"
+            >
+            </v-text-field>
           </template>
           <v-date-picker v-model="beginDate"></v-date-picker>
         </v-menu>
@@ -31,15 +29,13 @@
           transition="scale-transition"
         >
           <template v-slot:activator="{ on }">
-            <div>
-              <v-text-field
-                label="End Date"
-                prepend-icon="date_range"
-                :value="endDate"
-                v-on="on"
-              >
-              </v-text-field>
-            </div>
+            <v-text-field
+              label="End Date"
+              prepend-icon="date_range"
+              :value="endDate"
+              v-on="on"
+            >
+            </v-text-field>
           </template>
           <v-date-picker v-model="endDate"></v-date-picker>
         </v-menu>

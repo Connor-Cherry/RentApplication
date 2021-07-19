@@ -2,10 +2,12 @@
   <div align="center" justify="center">
     <table>
       <tr>
-        <div>
-          <AddElecPeriodComponent style="margin-bottom: 30px" />
-          <DisplayElecPeriodsComponent />
-        </div>
+        <v-app>
+          <div>
+            <AddElecPeriodComponent style="margin-bottom: 30px" />
+            <DisplayElecPeriodsComponent />
+          </div>
+        </v-app>
       </tr>
     </table>
   </div>
