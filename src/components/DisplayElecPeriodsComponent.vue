@@ -9,10 +9,10 @@
         v-bind:key="period.cost"
         class="period"
       >
-        <div>{{ period.getCost }}</div>
-        <div>{{ period.getEndDate }}</div>
-        <div>{{ period.getBeginDate }}</div>
-        <div>{{ period.getPowerUsage }}</div>
+        {{ period.getCost }}
+        {{ period.getEndDate }}
+        {{ period.getBeginDate }}
+        {{ period.getPowerUsage }}
       </div>
     </div>
   </div>

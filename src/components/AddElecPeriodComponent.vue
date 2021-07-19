@@ -1,63 +1,57 @@
 <template>
   <div>
-    <div>
-      <v-card-title>
-        <h2>Add Electricity Period</h2>
-      </v-card-title>
-    </div>
-    <div>
-      <v-card-text>
-        <v-form class="px-3">
-          <v-menu
-            max-width="290px"
-            min-width="290px"
-            :close-on-content-click="false"
-            transition="scale-transition"
-          >
-            <template v-slot:activator="{ on }">
-              <div>
-                <v-text-field
-                  label="Begin Date"
-                  prepend-icon="date_range"
-                  :value="beginDate"
-                  v-on="on"
-                >
-                </v-text-field>
-              </div>
-            </template>
-            <v-date-picker v-model="beginDate"></v-date-picker>
-          </v-menu>
-          <v-menu
-            max-width="290px"
-            min-width="290px"
-            :close-on-content-click="false"
-            transition="scale-transition"
-          >
-            <template v-slot:activator="{ on }">
-              <div>
-                <v-text-field
-                  label="End Date"
-                  prepend-icon="date_range"
-                  :value="endDate"
-                  v-on="on"
-                >
-                </v-text-field>
-              </div>
-            </template>
-            <v-date-picker v-model="endDate"></v-date-picker>
-          </v-menu>
-          <v-text-field label="Cost" prefix="$" v-model="cost"></v-text-field>
-          <v-text-field
-            label="Power Usage"
-            suffix="kW"
-            v-model="powerUsage"
-          ></v-text-field>
-          <v-btn text class="success mx-0 mt-3" @click="submit"
-            >Add Period</v-btn
-          >
-        </v-form>
-      </v-card-text>
-    </div>
+    <v-card-title>
+      <h2>Add Electricity Period</h2>
+    </v-card-title>
+    <v-card-text>
+      <v-form class="px-3">
+        <v-menu
+          max-width="290px"
+          min-width="290px"
+          :close-on-content-click="false"
+          transition="scale-transition"
+        >
+          <template v-slot:activator="{ on }">
+            <div>
+              <v-text-field
+                label="Begin Date"
+                prepend-icon="date_range"
+                :value="beginDate"
+                v-on="on"
+              >
+              </v-text-field>
+            </div>
+          </template>
+          <v-date-picker v-model="beginDate"></v-date-picker>
+        </v-menu>
+        <v-menu
+          max-width="290px"
+          min-width="290px"
+          :close-on-content-click="false"
+          transition="scale-transition"
+        >
+          <template v-slot:activator="{ on }">
+            <div>
+              <v-text-field
+                label="End Date"
+                prepend-icon="date_range"
+                :value="endDate"
+                v-on="on"
+              >
+              </v-text-field>
+            </div>
+          </template>
+          <v-date-picker v-model="endDate"></v-date-picker>
+        </v-menu>
+        <v-text-field label="Cost" prefix="$" v-model="cost"></v-text-field>
+        <v-text-field
+          label="Power Usage"
+          suffix="kW"
+          v-model="powerUsage"
+        ></v-text-field>
+        <v-btn text class="success mx-0 mt-3" @click="submit">Add Period</v-btn>
+      </v-form>
+    </v-card-text>
   </div>
 </template>
 
