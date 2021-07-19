@@ -1,55 +1,72 @@
-import { VuexModule, Module, Mutation, Action } from 'vuex-module-decorators';
+import {
+  VuexModule,
+  Module,
+  Mutation,
+  Action,
+  getModule,
+} from "vuex-module-decorators";
+import store from "../index";
+import { ElectricityPeriod } from "../../model/ElectricityPeriod";
+import axios from "axios";
 
-@Module
-class ElectricityPeriod extends VuexModule {
-    private cost = 361.00;
-    private beginDate: Date = new Date("2021-07-9");
-    private endDate: Date = new Date("2021-10-9");
-    private powerUsage = 2700.0;
+@Module({ dynamic: true, store, name: "ElectricityModule" })
+class ElectricityModule extends VuexModule {
+  private periods: ElectricityPeriod[] = [];
 
-    get periodCost(){
-        return this.cost;
-    }
+  get allPeriods(): ElectricityPeriod[] {
+    return this.periods;
+  }
 
-    get periodBeginDate() {
-        return this.beginDate;
-    }
+  @Mutation
+  public setPeriods(inPeriods: ElectricityPeriod[]): void {
+    this.periods = inPeriods;
+  }
 
-    get periodEndDate() {
-        return this.endDate;
-    }
+  @Mutation
+  public addPeriod(inPeriod: any): void {
+    console.log(typeof inPeriod);
+    const periodObj = JSON.parse(JSON.stringify(inPeriod));
+    const elecPeriod: ElectricityPeriod = new ElectricityPeriod(
+      parseFloat(periodObj.cost),
+      new Date(periodObj.beginDate),
+      new Date(periodObj.endDate),
+      parseFloat(periodObj.powerUsage)
+    );
+    this.periods.push(elecPeriod);
+  }
 
-    get periodPowerUsage() {
-        return this.powerUsage;
-    }
+  @Action
+  public async getAllPeriods() {
+    const response = await axios.get("http://localhost:5000/api/posts");
+    const periods: any = JSON.parse(JSON.stringify(response.data));
+    const electricPeriods: ElectricityPeriod[] = [];
+    periods.forEach((period: any) => {
+      electricPeriods.push(
+        new ElectricityPeriod(
+          parseFloat(period.cost),
+          new Date(period.beginDate),
+          new Date(period.endDate),
+          parseFloat(period.powerUsage)
+        )
+      );
+    });
+    this.context.commit("setPeriods", electricPeriods);
+  }
 
-    @Mutation
-    setCost(inCost: number){
-        this.cost = inCost;
-    }
+  @Action({ rawError: true })
+  public async addElectricityPeriod(inPeriod: ElectricityPeriod) {
+    const elecPeriod: string = inPeriod.getJson();
+    const response = await axios.post(
+      "http://localhost:5000/api/posts",
+      JSON.parse(elecPeriod)
+    );
+    this.context.commit("addPeriod", response.data);
+  }
 
-    @Mutation
-    setBeginDate(inBeginDate: Date){
-        this.beginDate = inBeginDate;
-    }
-
-    @Mutation
-    setEndDate(inEndDate: Date){
-        this.endDate = inEndDate;
-    }
-
-    @Mutation
-    setPowerUsage(inPowerUsage: number){
-        this.powerUsage = inPowerUsage;
-    }
-
-    @Action
-    public addElectricityPeriod(inCost: number, inBeginDate: Date, inEndDate: Date, inPowerUsage: number): void {
-        this.setCost(inCost);
-        this.setBeginDate(inBeginDate);
-        this.setEndDate(inEndDate);
-        this.setPowerUsage(inPowerUsage);
-    }
+  @Action
+  public addElectricityPeriods(inPeriods: ElectricityPeriod[]): void {
+    this.context.commit("setPeriods", inPeriods);
+  }
 }
 
-export default ElectricityPeriod;
+export default getModule(ElectricityModule);

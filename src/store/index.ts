@@ -1,11 +1,13 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import Electricity from "./modules/Electricity";
 
 Vue.use(Vuex);
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
   state: {},
   mutations: {},
   actions: {},
-  modules: {},
 });
+
+export default store;
